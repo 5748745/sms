@@ -83,7 +83,6 @@
 
 <script>
 import headTop from '@/components/header/head'
-import {mapState, mapMutations} from 'vuex'
 import Util from '@/libs/util.js'
 
 export default {
@@ -99,7 +98,8 @@ export default {
       pointNumber: 0, // 积分数
       cardNumber: 0, // 卡号
       headimgurl: '', // 头像地址
-      responseData: null
+      responseData: null,
+      userInfo: {}
     }
   },
   mounted () {
@@ -110,9 +110,6 @@ export default {
   },
 
   computed: {
-    ...mapState([
-      'userInfo'
-    ]),
     // 后台会返回两种头像地址格式，分别处理
     imgpath: function () {
       let path
@@ -126,9 +123,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'SAVE_AVANDER'
-    ]),
     initData () {
       let self = this
       // let obj = {}
