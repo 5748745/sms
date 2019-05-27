@@ -11,6 +11,11 @@ export default new Router({
       path: '/',
       name: 'profile',
       component: profile
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })

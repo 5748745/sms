@@ -21,7 +21,6 @@
 <script>
     import headTop from '@/components/header/head'
     import alertTip from '@/components/common/alertTip'
-    import {mapMutations} from 'vuex'
     import Util from '@/libs/util.js'
 
     export default {
@@ -38,6 +37,9 @@
           passWord: null, // 密码
           captchaCodeImg: null, // 验证码地址
           codeNumber: null, // 验证码
+          shop:{
+              shopID:null
+          },
           showAlert: false, // 显示提示组件
           alertText: null // 提示的内容
         }
@@ -54,9 +56,6 @@
         }
       },
       methods: {
-        ...mapMutations([
-          'RECORD_USERINFO'
-        ]),
         // 获取短信验证码
         getVerifyCode () {
           let self = this
@@ -70,9 +69,9 @@
             }, 1000)
             // 发送短信验证码
             let obj = {}
-            obj.openid = this.$store.state.userInfo.openid
+            obj.openid = this.userInfo.openid
             obj.telePhone = this.phoneNumber
-            Util.ajax.post(`/bridge/sendVerifySms?shopId=${self.$store.state.shop.shopID}`, obj).then(res => {
+            Util.ajax.post(`/bridge/sendVerifySms?shopId=${self.shop.shopID}`, obj).then(res => {
             })
             // this.validate_token = res.validate_token
           }
@@ -91,11 +90,11 @@
           }
 
           let obj = {}
-          obj.openid = this.$store.state.userInfo.openid
+          obj.openid = this.userInfo.openid
           obj.telePhone = this.phoneNumber
           obj.verifyCode = this.mobileCode
           // 手机号登录
-          Util.ajax.post(`/bridge/wxUserBind?shopId=${self.$store.state.shop.shopID}`, obj).then(res => {
+          Util.ajax.post(`/bridge/wxUserBind?shopId=${self.shop.shopID}`, obj).then(res => {
             self.$router.go(-1)
           })
           // this.RECORD_USERINFO(this.userInfo)
